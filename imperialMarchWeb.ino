@@ -4,8 +4,7 @@
 #include "Arduino_LED_Matrix.h"
 
 const char* ssid = "Pavel - iPhone";
-const char* password = "chalkaww"; 
-String ip;
+const char* password = "chalkaww";
 
 ArduinoLEDMatrix matrix;
 const char text[] = "    172.20.10.4";
@@ -41,8 +40,6 @@ void setup() {
     delay(1000);
     Serial.println("Connecting to Wi-Fi...");
   }
-
-  //ip = WiFi.localIP().toString();
 
   Serial.print("IP Address: ");
   Serial.println(WiFi.localIP());
@@ -114,59 +111,14 @@ void loop() {
     client.println("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
     client.println("<title>Alarm Control</title>");
     client.println("<style>");
-    client.println("body {");
-    client.println("  font-family: Arial, sans-serif;");
-    client.println("  background-color: #f4f4f9;");
-    client.println("  margin: 0;");
-    client.println("  padding: 0;");
-    client.println("  display: flex;");
-    client.println("  justify-content: center;");
-    client.println("  align-items: center;");
-    client.println("  height: 100vh;");
-    client.println("}");
-    client.println(".container {");
-    client.println("  background: #fff;");
-    client.println("  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);");
-    client.println("  border-radius: 8px;");
-    client.println("  padding: 20px;");
-    client.println("  text-align: center;");
-    client.println("  max-width: 400px;");
-    client.println("  width: 100%;");
-    client.println("}");
-    client.println("h1 {");
-    client.println("  font-size: 2em;");
-    client.println("  margin-bottom: 20px;");
-    client.println("  color: #333;");
-    client.println("}");
-    client.println("form {");
-    client.println("  display: flex;");
-    client.println("  flex-direction: column;");
-    client.println("}");
-    client.println("label {");
-    client.println("  font-size: 1.2em;");
-    client.println("  margin-bottom: 8px;");
-    client.println("  color: #555;");
-    client.println("}");
-    client.println("input[type='text'] {");
-    client.println("  padding: 10px;");
-    client.println("  font-size: 1em;");
-    client.println("  border: 1px solid #ccc;");
-    client.println("  border-radius: 4px;");
-    client.println("  margin-bottom: 20px;");
-    client.println("}");
-    client.println("input[type='submit'] {");
-    client.println("  background: #007bff;");
-    client.println("  color: #fff;");
-    client.println("  border: none;");
-    client.println("  padding: 10px;");
-    client.println("  font-size: 1em;");
-    client.println("  border-radius: 4px;");
-    client.println("  cursor: pointer;");
-    client.println("  transition: background 0.3s;");
-    client.println("}");
-    client.println("input[type='submit']:hover {");
-    client.println("  background: #0056b3;");
-    client.println("}");
+    client.println("body { font-family: Arial, sans-serif; background-color: #f4f4f9; margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; height: 100vh; }");
+    client.println(".container { background: #fff; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); border-radius: 8px; padding: 20px; text-align: center; max-width: 400px; width: 100%; }");
+    client.println("h1 { font-size: 2em; margin-bottom: 20px; color: #333; }");
+    client.println("form { display: flex; flex-direction: column; }");
+    client.println("label { font-size: 1.2em; margin-bottom: 8px; color: #555; }");
+    client.println("input[type='text'] { padding: 10px; font-size: 1em; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 20px; }");
+    client.println("input[type='submit'] { background: #007bff; color: #fff; border: none; padding: 10px; font-size: 1em; border-radius: 4px; cursor: pointer; transition: background 0.3s; }");
+    client.println("input[type='submit']:hover { background: #0056b3; }");
     client.println("</style>");
     client.println("</head>");
     client.println("<body>");
