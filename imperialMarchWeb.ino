@@ -3,8 +3,9 @@
 #include "ArduinoGraphics.h"
 #include "Arduino_LED_Matrix.h"
 
-const char* ssid = "Pavel - iPhone";
-const char* password = "chalkaww";
+//Add a name of the wifi and password
+const char* ssid = "";
+const char* password = "";
 
 ArduinoLEDMatrix matrix;
 const char text[] = "    172.20.10.4";
@@ -45,6 +46,7 @@ void setup() {
   Serial.println(WiFi.localIP());
   server.begin();
 
+  //Printing ip on LED matrix
   matrix.beginDraw();
   matrix.textFont(Font_4x6);
   matrix.beginText(0, 1, 0xFFFFFF);
@@ -68,7 +70,8 @@ void loop() {
     Serial.print("IP Address: ");
     Serial.println(WiFi.localIP());
   }
-  
+
+  //Checking password
   WiFiClient client = server.available();
   if (client) {
     String request = client.readStringUntil('\r');
@@ -98,6 +101,7 @@ void loop() {
       }
     }
 
+    //Web page
     client.println("HTTP/1.1 200 OK");
     client.println("Content-type:text/html");
     client.println("Cache-Control: no-cache, no-store, must-revalidate");
@@ -138,6 +142,7 @@ void loop() {
     enteredPassword = "";
   }
 
+  //Check for magnet switch
   if (digitalRead(magneticSwitchPin) == HIGH) {
     if (!timerRunning && !waitingForDoorClose) {
       timerRunning = true;
@@ -146,13 +151,15 @@ void loop() {
     }
   }
 
-  if (timerRunning && (millis() - alarmTimerStart >= 2000)) {
+  //Check for how long are the doors opened
+  if (timerRunning && (millis() - alarmTimerStart >= 10000)) {
     timerRunning = false;
     alarmState = true;
     Serial.println("Timer expired. Alarm triggered.");
   }
 
-  if (disarmTimerRunning && (millis() - disarmTimerStart >= 5000)) {
+  //Check for disarm timer
+  if (disarmTimerRunning && (millis() - disarmTimerStart >= 60000)) {
     disarmTimerRunning = false;
     waitingForDoorClose = false;
     passwordEntered = false;
@@ -164,16 +171,18 @@ void loop() {
     }
   }
 
+  //Check if doors are closed after succesfuly entered password
   if (waitingForDoorClose && digitalRead(magneticSwitchPin) == LOW) {
     waitingForDoorClose = false;
     disarmTimerRunning = false;
-    passwordEntered = false; 
+    passwordEntered = false;
     Serial.println("Door closed. System rearmed.");
   }
 
+  //Check to turn off alarm after succesfuly entered password
   if (alarmState && passwordEntered) {
     alarmState = false;
-    passwordEntered = false; 
+    passwordEntered = false;
     disarmTimerRunning = true;
     disarmTimerStart = millis();
     waitingForDoorClose = true;
